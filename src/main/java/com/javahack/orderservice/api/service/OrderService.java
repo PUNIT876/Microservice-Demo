@@ -24,7 +24,7 @@ public class OrderService {
         payment.setAmount(order.getPrice());
 
         //rest call
-        Payment paymentResponse = restTemplate.postForObject("http://localhost:9191/payment/doPayment", payment, Payment.class);
+        Payment paymentResponse = restTemplate.postForObject("http://PAYMENT-SERVICE/payment/doPayment", payment, Payment.class);
         String message = (paymentResponse.getPaymentStatus().equals("success")) ? "Payment Processing Successfull" : "Payment Failed";
         orderRepository.save(order);
         return new TransactionResponse(order,paymentResponse.getAmount(), paymentResponse.getTransactionId(), message);
